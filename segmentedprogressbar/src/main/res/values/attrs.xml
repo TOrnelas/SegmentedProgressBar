@@ -2,7 +2,7 @@
 <resources>
     <declare-styleable name="SegmentedProgressBar">
         <attr name="totalSegments" format="integer"/>
-        <attr name="segmentProgress" format="integer"/>
+        <attr name="timePerSegment" format="integer"/>
         <attr name="segmentMargins" format="dimension"/>
         <attr name="segmentCornerRadius" format="dimension"/>
         <attr name="segmentStrokeWidth" format="dimension"/>

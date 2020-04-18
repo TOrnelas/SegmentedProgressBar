@@ -2,4 +2,5 @@
 <resources>
     <integer name="default_progress">0</integer>
     <integer name="default_segments_count">4</integer>
+    <integer name="default_time_per_segment_ms">5000</integer> <!-- 5 seconds-->
 </resources>
