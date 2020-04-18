@@ -1,2 +1,2 @@
 # SegmentedProgressBar
-An instagram-like segmented progress bar
+An instagram-stories-like segmented progress bar
