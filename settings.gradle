@@ -1,0 +1,3 @@
+rootProject.name='SegmentedProgressBar'
+include ':app'
+include ':segmentedprogressbar'
