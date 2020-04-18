@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SegmentedProgressBar">
+        <attr name="totalSegments" format="integer"/>
+        <attr name="segmentProgress" format="integer"/>
+        <attr name="segmentMargins" format="dimension"/>
+        <attr name="segmentCornerRadius" format="dimension"/>
+        <attr name="segmentStrokeWidth" format="dimension"/>
+        <attr name="segmentBackgroundColor" format="color"/>
+        <attr name="segmentSelectedBackgroundColor" format="color"/>
+        <attr name="segmentStrokeColor" format="color"/>
+        <attr name="segmentSelectedStrokeColor" format="color"/>
+    </declare-styleable>
+</resources>
