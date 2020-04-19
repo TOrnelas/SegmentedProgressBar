@@ -1,46 +1,32 @@
 package pt.tornelas.segmentedprogressbar
 
+import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import pt.tornelas.segmentedprogressbar.standard.StandardExampleActivity
 
 class MainActivity : AppCompatActivity() {
 
-    private val pages = listOf(
-        "Page 1",
-        "Page 2",
-        "Page 3",
-        "Page 4",
-        "Page 5",
-        "Page 6",
-        "Page 7"
-    )
+    companion object{
+        const val LAYOUT_TYPE_STANDARD = 0
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        btnStandardLayout.setOnClickListener { loadExample(LAYOUT_TYPE_STANDARD) }
+    }
 
-        btnPauseAnimation.setOnClickListener { segmentedProgressBar.pause() }
-        btnResetAnimation.setOnClickListener { segmentedProgressBar.reset() }
-        btnStartAnimation.setOnClickListener { segmentedProgressBar.start() }
-        btnNext.setOnClickListener { segmentedProgressBar.next() }
-        btnPrevious.setOnClickListener { segmentedProgressBar.previous() }
-        btnRestartSegment.setOnClickListener { segmentedProgressBar.restartSegment() }
-        btnIncrease.setOnClickListener { segmentedProgressBar.setSegmentsCount(20) }
-
-        segmentedProgressBar.setSegmentsCount(10)
-        segmentedProgressBar.start()
-
-        segmentedProgressBar.listener = object : SegmentedProgressBarListener{
-            override fun onPage(oldPageIndex: Int, newPageIndex: Int) {
-                Log.i("MAINACTIVITY", "onOldPage $oldPageIndex onNEwPage $newPageIndex")
-            }
-
-            override fun onFinished() {
-                Log.i("MAINACTIVITY", "onFinished")
-            }
-
-        }
+    private fun loadExample(type: Int){
+        startActivity(
+            Intent(
+                this,
+                when (type){
+                    LAYOUT_TYPE_STANDARD -> StandardExampleActivity::class.java
+                    else -> throw RuntimeException("Unrecognized activity")
+                }
+            )
+        )
     }
 }

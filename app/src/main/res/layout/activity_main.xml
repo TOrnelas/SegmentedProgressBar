@@ -1,61 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".MainActivity"
+    android:orientation="vertical"
     android:padding="16dp"
-    android:orientation="vertical">
+    tools:context=".MainActivity">
 
-    <pt.tornelas.segmentedprogressbar.SegmentedProgressBar
-        android:id="@+id/segmentedProgressBar"
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:segmentCornerRadius="3dp"
-        app:timePerSegment="1000"/>
-
-    <Button
-        android:id="@+id/btnStartAnimation"
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Start!"/>
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-    <Button
-        android:id="@+id/btnPauseAnimation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pause"/>
+        <Button
+            android:id="@+id/btnStandardLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Standard" />
 
-    <Button
-        android:id="@+id/btnResetAnimation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Reset"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
 
-    <Button
-        android:id="@+id/btnNext"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Next"/>
-
-    <Button
-        android:id="@+id/btnPrevious"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Previous"/>
-
-    <Button
-        android:id="@+id/btnRestartSegment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Restart segment"/>
-
-    <Button
-        android:id="@+id/btnIncrease"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Increaset"/>
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.constraintlayout.widget.ConstraintLayout>
