@@ -1,2 +1,1 @@
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="pt.tornelas.segmentedprogressbar" />
+<manifest package="pt.tornelas.segmentedprogressbar" />
