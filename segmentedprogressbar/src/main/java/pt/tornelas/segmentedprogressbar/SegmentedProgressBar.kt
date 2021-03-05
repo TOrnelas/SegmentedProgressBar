@@ -234,7 +234,9 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
         val oldSegmentIndex = this.segments.indexOf(this.selectedSegment)
 
         val nextSegmentIndex = oldSegmentIndex + offset
-        if (userAction && nextSegmentIndex !in 0 until segmentCount) { //Index out of bounds, ignore operation
+
+        //Index out of bounds, ignore operation
+        if (userAction && nextSegmentIndex !in 0 until segmentCount) {
             return
         }
 

@@ -7,9 +7,4 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <!-- Example activities theme. -->
-    <style name="ExampleActivityTheme" parent="AppTheme">
-        <item name="android:homeAsUpIndicator">@android:drawable/arrow_down_float</item>
-    </style>
-
 </resources>

@@ -40,7 +40,7 @@ class PageFragment : Fragment(), RequestListener<Drawable> {
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?
-    ) = inflater.inflate(R.layout.fragment_page, container, false)
+    ): View = inflater.inflate(R.layout.fragment_page, container, false)
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
