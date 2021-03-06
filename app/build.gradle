@@ -5,10 +5,11 @@ apply plugin: 'kotlin-android-extensions'
 repositories {
     mavenCentral()
     google()
+    maven { url 'https://jitpack.io' }
 }
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
     buildToolsVersion "29.0.3"
 
     defaultConfig {
@@ -38,5 +39,5 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
-    implementation project(':segmentedprogressbar')
+    implementation 'com.github.TOrnelas:SegmentedProgressBar:0.0.1'
 }

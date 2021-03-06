@@ -5,5 +5,5 @@ package pt.tornelas.segmentedprogressbar
  * With Page {index} strings
  */
 fun dataSource(): List<Int>{
-    return List((1..15).random()){ index -> index }
+    return List((1..5).random()){ index -> index }
 }
