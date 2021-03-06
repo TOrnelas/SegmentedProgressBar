@@ -119,6 +119,7 @@ spb.listener = object : SegmentedProgressBarListener {
 }
 ```
 
+Feel free to checkout the [sample](https://github.com/TOrnelas/SegmentedProgressBar/tree/master/app) on this repository
 
 ```
 MIT License
