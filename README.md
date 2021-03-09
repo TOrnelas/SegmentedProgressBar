@@ -3,6 +3,7 @@
 An Instagram-like stories segmented progress bar
 
 [![](https://jitpack.io/v/TOrnelas/SegmentedProgressBar.svg)](https://jitpack.io/#TOrnelas/SegmentedProgressBar)
+[![Android Arsenal]( https://img.shields.io/badge/Android%20Arsenal-SegmentedProgressBar-green.svg?style=flat )]( https://android-arsenal.com/details/1/8229 )
 
 ![screen-20210306-002812_2 (3)](https://user-images.githubusercontent.com/17816841/110188846-0a784800-7e15-11eb-85c2-897e572173c2.gif)
 
