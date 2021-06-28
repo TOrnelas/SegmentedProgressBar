@@ -97,7 +97,7 @@ spb.setPosition(X)
 
 ## Set a ViewPager
 
-You can sync a ViewPager with a SegmentedProgressBar by doing
+You can sync a [ViewPager2](https://developer.android.com/jetpack/androidx/releases/viewpager2) with a SegmentedProgressBar by doing
 
 ```
 spb.viewPager = viewPager
