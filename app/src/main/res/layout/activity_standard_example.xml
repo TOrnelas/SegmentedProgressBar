@@ -12,9 +12,18 @@
     <pt.tornelas.segmentedprogressbar.SegmentedProgressBar
         android:id="@+id/spb"
         android:layout_width="match_parent"
-        android:layout_height="5dp"
+        android:layout_height="8dp"
         android:layout_margin="8dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:segmentBackgroundColor="@android:color/white"
+        app:segmentSelectedBackgroundColor="@android:color/black"
+        app:segmentStrokeColor="@android:color/black"
+        app:segmentSelectedStrokeColor="@android:color/black"
+        app:segmentStrokeWidth="0dp"
+        app:segmentCornerRadius="8dp"
+        app:segmentMargins="@dimen/default_segment_margin"
+        app:timePerSegment="1000"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
