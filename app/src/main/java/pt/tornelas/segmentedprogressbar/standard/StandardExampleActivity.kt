@@ -33,7 +33,7 @@ class StandardExampleActivity : AppCompatActivity() {
         }
 
         val spb = findViewById<SegmentedProgressBar>(R.id.spb)
-        spb.start()
+//        spb.start()
 
         btnNext.setOnClickListener { spb.next() }
         btnPrevious.setOnClickListener { spb.previous() }
