@@ -148,6 +148,10 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
         defStyleAttr
     )
 
+    init {
+        setLayerType(LAYER_TYPE_SOFTWARE, null)
+    }
+
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
