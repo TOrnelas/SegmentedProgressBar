@@ -21,7 +21,7 @@ fun SegmentedProgressBar.getDrawingComponents(
     val segmentWidth = segmentWidth
     val startBound = segmentIndex * segmentWidth + ((segmentIndex) * margin)
     val endBound = startBound + segmentWidth
-    val stroke = if(!strokeApplicable) 0f else this.segmentStrokeWidth.toFloat()
+    val stroke = if (!strokeApplicable) 0f else this.segmentStrokeWidth.toFloat()
 
     val backgroundPaint = Paint().apply {
         style = Paint.Style.FILL

@@ -19,9 +19,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".standard.StandardExampleActivity"
-            android:theme="@style/AppTheme"
+        <activity
+            android:name=".standard.StandardExampleActivity"
+            android:label="Standard Example"
             android:parentActivityName=".MainActivity"
-            android:label="Standard Example"/>
+            android:theme="@style/AppTheme" />
     </application>
 </manifest>
