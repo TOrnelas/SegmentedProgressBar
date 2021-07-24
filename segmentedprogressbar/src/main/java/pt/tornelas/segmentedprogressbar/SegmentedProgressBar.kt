@@ -9,7 +9,6 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import android.view.View.OnTouchListener
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 
@@ -69,6 +68,15 @@ class SegmentedProgressBar : View, Runnable {
     val segmentWidth: Float
         get() = (measuredWidth - margin * (segmentCount - 1)).toFloat() / segmentCount
 
+    @SuppressLint("ClickableViewAccessibility")
+    private val onTouchListener = OnTouchListener { _, event ->
+        when(event?.action) {
+            MotionEvent.ACTION_DOWN -> pause()
+            MotionEvent.ACTION_UP -> start()
+        }
+        false
+    }
+
     // VIEWPAGER
     private val onPageChangeLister = object : ViewPager.OnPageChangeListener {
         override fun onPageScrollStateChanged(state: Int) {}
@@ -78,15 +86,6 @@ class SegmentedProgressBar : View, Runnable {
         override fun onPageSelected(position: Int) {
             setPosition(position)
         }
-    }
-
-    @SuppressLint("ClickableViewAccessibility")
-    private val onTouchListener = OnTouchListener { _, event ->
-        when(event?.action) {
-            MotionEvent.ACTION_DOWN -> pause()
-            MotionEvent.ACTION_UP -> start()
-        }
-        false
     }
 
     var viewPager: ViewPager? = null
@@ -110,25 +109,6 @@ class SegmentedProgressBar : View, Runnable {
         }
     }
 
-    private val onInterceptTouchListener = object : RecyclerView.OnItemTouchListener,
-        OnTouchListener {
-        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent) = false
-
-        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
-        }
-
-        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
-        }
-
-        override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-            when(event?.action) {
-                MotionEvent.ACTION_DOWN -> pause()
-                MotionEvent.ACTION_UP -> start()
-            }
-            return false
-        }
-    }
-
     var viewPager2: ViewPager2? = null
         @SuppressLint("ClickableViewAccessibility")
         set(value) {
@@ -138,7 +118,7 @@ class SegmentedProgressBar : View, Runnable {
                 viewPager2?.getChildAt(0)?.setOnTouchListener(null)
             } else {
                 viewPager2?.registerOnPageChangeCallback(onPageChangeCallback)
-                viewPager2?.getChildAt(0)?.setOnTouchListener(onInterceptTouchListener)
+                viewPager2?.getChildAt(0)?.setOnTouchListener(onTouchListener)
             }
         }
 
