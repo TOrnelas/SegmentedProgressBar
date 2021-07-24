@@ -110,13 +110,23 @@ class SegmentedProgressBar : View, Runnable {
         }
     }
 
-    @SuppressLint("ClickableViewAccessibility")
-    private val onInterceptTouchListener = OnTouchListener { _, event ->
-        when(event?.action) {
-            MotionEvent.ACTION_DOWN -> pause()
-            MotionEvent.ACTION_UP -> start()
+    private val onInterceptTouchListener = object : RecyclerView.OnItemTouchListener,
+        OnTouchListener {
+        override fun onInterceptTouchEvent(rv: RecyclerView, e: MotionEvent) = false
+
+        override fun onTouchEvent(rv: RecyclerView, e: MotionEvent) {
         }
-        false
+
+        override fun onRequestDisallowInterceptTouchEvent(disallowIntercept: Boolean) {
+        }
+
+        override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+            when(event?.action) {
+                MotionEvent.ACTION_DOWN -> pause()
+                MotionEvent.ACTION_UP -> start()
+            }
+            return false
+        }
     }
 
     var viewPager2: ViewPager2? = null
