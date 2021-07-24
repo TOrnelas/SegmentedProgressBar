@@ -39,6 +39,5 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
-    //implementation 'com.github.TOrnelas:SegmentedProgressBar:0.0.1'
-    implementation project(":segmentedprogressbar")
+    implementation 'com.github.TOrnelas:SegmentedProgressBar:0.0.1'
 }
