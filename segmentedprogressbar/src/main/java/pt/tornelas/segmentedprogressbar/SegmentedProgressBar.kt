@@ -8,6 +8,8 @@ import android.os.Handler
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager.widget.ViewPager
 import androidx.viewpager2.widget.ViewPager2
 
@@ -17,7 +19,7 @@ import androidx.viewpager2.widget.ViewPager2
  * @see Segment
  * And the progress of each segment is animated based on a set speed
  */
-class SegmentedProgressBar : View, Runnable, View.OnTouchListener {
+class SegmentedProgressBar : View, Runnable {
 
     /**
      * Number of total segments to draw
@@ -78,6 +80,15 @@ class SegmentedProgressBar : View, Runnable, View.OnTouchListener {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private val onTouchListener = OnTouchListener { _, event ->
+        when(event?.action) {
+            MotionEvent.ACTION_DOWN -> pause()
+            MotionEvent.ACTION_UP -> start()
+        }
+        false
+    }
+
     var viewPager: ViewPager? = null
         @SuppressLint("ClickableViewAccessibility")
         set(value) {
@@ -87,7 +98,7 @@ class SegmentedProgressBar : View, Runnable, View.OnTouchListener {
                 viewPager?.setOnTouchListener(null)
             } else {
                 viewPager?.addOnPageChangeListener(onPageChangeLister)
-                viewPager?.setOnTouchListener(this)
+                viewPager?.setOnTouchListener(onTouchListener)
             }
         }
 
@@ -99,16 +110,25 @@ class SegmentedProgressBar : View, Runnable, View.OnTouchListener {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
+    private val onInterceptTouchListener = OnTouchListener { _, event ->
+        when(event?.action) {
+            MotionEvent.ACTION_DOWN -> pause()
+            MotionEvent.ACTION_UP -> start()
+        }
+        false
+    }
+
     var viewPager2: ViewPager2? = null
         @SuppressLint("ClickableViewAccessibility")
         set(value) {
             field = value
             if (value == null) {
                 viewPager2?.unregisterOnPageChangeCallback(onPageChangeCallback)
-                viewPager2?.setOnTouchListener(null)
+                viewPager2?.getChildAt(0)?.setOnTouchListener(null)
             } else {
                 viewPager2?.registerOnPageChangeCallback(onPageChangeCallback)
-                viewPager2?.setOnTouchListener(this)
+                viewPager2?.getChildAt(0)?.setOnTouchListener(onInterceptTouchListener)
             }
         }
 
@@ -318,13 +338,5 @@ class SegmentedProgressBar : View, Runnable, View.OnTouchListener {
             this.invalidate()
             animationHandler.postDelayed(this, animationUpdateTime)
         }
-    }
-
-    override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-        when (p1?.action){
-            MotionEvent.ACTION_DOWN -> pause()
-            MotionEvent.ACTION_UP -> start()
-        }
-        return false
     }
 }
