@@ -9,6 +9,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import androidx.viewpager.widget.ViewPager
+import androidx.viewpager2.widget.ViewPager2
 
 /**
  * Created by Tiago Ornelas on 18/04/2020.
@@ -16,7 +17,7 @@ import androidx.viewpager.widget.ViewPager
  * @see Segment
  * And the progress of each segment is animated based on a set speed
  */
-class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, View.OnTouchListener {
+class SegmentedProgressBar : View, Runnable, View.OnTouchListener {
 
     /**
      * Number of total segments to draw
@@ -66,16 +67,48 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
     val segmentWidth: Float
         get() = (measuredWidth - margin * (segmentCount - 1)).toFloat() / segmentCount
 
+    // VIEWPAGER
+    private val onPageChangeLister = object : ViewPager.OnPageChangeListener {
+        override fun onPageScrollStateChanged(state: Int) {}
+
+        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+        override fun onPageSelected(position: Int) {
+            setPosition(position)
+        }
+    }
+
     var viewPager: ViewPager? = null
         @SuppressLint("ClickableViewAccessibility")
         set(value) {
             field = value
             if (value == null) {
-                viewPager?.removeOnPageChangeListener(this)
+                viewPager?.removeOnPageChangeListener(onPageChangeLister)
                 viewPager?.setOnTouchListener(null)
             } else {
-                viewPager?.addOnPageChangeListener(this)
+                viewPager?.addOnPageChangeListener(onPageChangeLister)
                 viewPager?.setOnTouchListener(this)
+            }
+        }
+
+    // VIEWPAGER2
+    private val onPageChangeCallback = object : ViewPager2.OnPageChangeCallback() {
+        override fun onPageSelected(position: Int) {
+            super.onPageSelected(position)
+            setPosition(position)
+        }
+    }
+
+    var viewPager2: ViewPager2? = null
+        @SuppressLint("ClickableViewAccessibility")
+        set(value) {
+            field = value
+            if (value == null) {
+                viewPager2?.unregisterOnPageChangeCallback(onPageChangeCallback)
+                viewPager2?.setOnTouchListener(null)
+            } else {
+                viewPager2?.registerOnPageChangeCallback(onPageChangeCallback)
+                viewPager2?.setOnTouchListener(this)
             }
         }
 
@@ -147,10 +180,6 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
         attrs,
         defStyleAttr
     )
-
-    init {
-        setLayerType(LAYER_TYPE_SOFTWARE, null)
-    }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
@@ -264,7 +293,11 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
             nextSegment.animationState = Segment.AnimationState.ANIMATING
             animationHandler.postDelayed(this, animationUpdateTime)
             this.listener?.onPage(oldSegmentIndex, this.selectedSegmentIndex)
-            viewPager?.currentItem = this.selectedSegmentIndex
+            viewPager?.let {
+                it.currentItem = this.selectedSegmentIndex
+            } ?: viewPager2?.let {
+                it.currentItem = this.selectedSegmentIndex
+            }
         } else {
             animationHandler.removeCallbacks(this)
             this.listener?.onFinished()
@@ -285,14 +318,6 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
             this.invalidate()
             animationHandler.postDelayed(this, animationUpdateTime)
         }
-    }
-
-    override fun onPageScrollStateChanged(state: Int) {}
-
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
-
-    override fun onPageSelected(position: Int) {
-        this.setPosition(position)
     }
 
     override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
