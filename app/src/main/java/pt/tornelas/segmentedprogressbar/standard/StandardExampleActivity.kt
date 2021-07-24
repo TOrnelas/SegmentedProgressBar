@@ -8,7 +8,7 @@ import pt.tornelas.segmentedprogressbar.R
 import pt.tornelas.segmentedprogressbar.SegmentedProgressBar
 import pt.tornelas.segmentedprogressbar.SegmentedProgressBarListener
 import pt.tornelas.segmentedprogressbar.dataSource
-import pt.tornelas.segmentedprogressbar.pager.PagerAdapter
+import pt.tornelas.segmentedprogressbar.viewpager2.Pager2Adapter
 
 class StandardExampleActivity : AppCompatActivity() {
 
@@ -16,7 +16,13 @@ class StandardExampleActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_standard_example)
 
-        val items = dataSource()
+        //initViewPager()
+        initViewPager2()
+        initSegmentedProgressBar()
+    }
+
+    private fun initViewPager() {
+        /*val items = dataSource()
 
         viewPager.adapter = PagerAdapter(supportFragmentManager, items)
         spb.viewPager = viewPager
@@ -30,8 +36,28 @@ class StandardExampleActivity : AppCompatActivity() {
             override fun onFinished() {
                 finish()
             }
-        }
+        }*/
+    }
 
+    private fun initViewPager2() {
+        val items = dataSource()
+
+        viewPager.adapter = Pager2Adapter(items)
+        spb.viewPager2 = viewPager
+
+        spb.segmentCount = items.size
+        spb.listener = object : SegmentedProgressBarListener {
+            override fun onPage(oldPageIndex: Int, newPageIndex: Int) {
+                // New page started animating
+            }
+
+            override fun onFinished() {
+                finish()
+            }
+        }
+    }
+
+    private fun initSegmentedProgressBar() {
         val spb = findViewById<SegmentedProgressBar>(R.id.spb)
         spb.start()
 
