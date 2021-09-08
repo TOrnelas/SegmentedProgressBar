@@ -16,7 +16,7 @@ import androidx.viewpager.widget.ViewPager
  * @see Segment
  * And the progress of each segment is animated based on a set speed
  */
-class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, View.OnTouchListener {
+open class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, View.OnTouchListener {
 
     /**
      * Number of total segments to draw
@@ -199,8 +199,8 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
     /**
      * Starts animation for the following segment
      */
-    fun next() {
-        loadSegment(offset = 1, userAction = true)
+    fun next(userAction: Boolean = true) {
+        loadSegment(offset = 1, userAction)
     }
 
     /**
@@ -213,8 +213,8 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
     /**
      * Restarts animation for the current segment
      */
-    fun restartSegment() {
-        loadSegment(offset = 0, userAction = true)
+    fun restartSegment(userAction: Boolean = true) {
+        loadSegment(offset = 0, userAction)
     }
 
     /**
@@ -280,7 +280,7 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
 
     override fun run() {
         if (this.selectedSegment?.progress() ?: 0 >= 100) {
-            loadSegment(offset = 1, userAction = false)
+            restartSegment(false)
         } else {
             this.invalidate()
             animationHandler.postDelayed(this, animationUpdateTime)
