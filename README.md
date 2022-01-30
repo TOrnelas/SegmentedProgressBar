@@ -93,6 +93,10 @@ spb.skip(X)
 
 // Restarts animation for segment at position X
 spb.setPosition(X)
+
+//Set specific duration for each segment
+spb.segmentsDurations = arrayOf(10_000L, 2000,7000)
+
 ```
 
 ## Set a ViewPager
