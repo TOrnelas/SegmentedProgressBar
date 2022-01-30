@@ -49,6 +49,12 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
         resources.getInteger(R.integer.default_time_per_segment_ms).toLong()
         private set
 
+    /**
+     * Sets duration for each Segment depending on the current index
+     * If there is no item at the current index, @timePerSegmentMs will be returned
+     */
+    var segmentsDurations: Array<Long>? = null
+
     private var segments = mutableListOf<Segment>()
     private val selectedSegment: Segment?
         get() = segments.firstOrNull { it.animationState == Segment.AnimationState.ANIMATING }
@@ -57,7 +63,7 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
 
     private val animationHandler = Handler()
     private val animationUpdateTime: Long
-        get() = timePerSegmentMs / 100
+        get() = getDurationForCurrentIndex() / 100
 
     //Drawing
     val strokeApplicable: Boolean
@@ -278,6 +284,14 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
         reset()
     }
 
+    private fun getDurationForCurrentIndex(): Long {
+        val index = selectedSegmentIndex
+        if (segmentsDurations != null && index < segmentsDurations!!.size) {
+            return segmentsDurations!![index]
+        }
+        return timePerSegmentMs
+    }
+
     override fun run() {
         if (this.selectedSegment?.progress() ?: 0 >= 100) {
             loadSegment(offset = 1, userAction = false)
@@ -296,7 +310,7 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
     }
 
     override fun onTouch(p0: View?, p1: MotionEvent?): Boolean {
-        when (p1?.action){
+        when (p1?.action) {
             MotionEvent.ACTION_DOWN -> pause()
             MotionEvent.ACTION_UP -> start()
         }
