@@ -275,6 +275,7 @@ class SegmentedProgressBar : View, Runnable, ViewPager.OnPageChangeListener, Vie
             animationHandler.removeCallbacks(this)
             this.listener?.onFinished()
         }
+        invalidate()
     }
 
     private fun initSegments() {
